@@ -16,12 +16,12 @@ require("config.lazy")
 vim.g.material_style = "deep ocean"
 vim.cmd("colorscheme material")
 -- adjustments for verilog
-vim.api.nvim_set_hl(0,"@keyword.directive.verilog", { fg = "#DC6068"})
-vim.api.nvim_set_hl(0,"@keyword.directive.define.verilog", { fg = "#DC6068"})
+vim.api.nvim_set_hl(0, "@keyword.directive.verilog", { fg = "#DC6068" })
+vim.api.nvim_set_hl(0, "@keyword.directive.define.verilog", { fg = "#DC6068" })
 
 -- bufferline (tabs) setup
 vim.opt.termguicolors = true
-require("bufferline").setup{}
+require("bufferline").setup {}
 
 -- nvim-tree setup
 require("nvim-tree").setup()
@@ -35,7 +35,7 @@ vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Telescope buffers' }
 
 -- verible lsp config
 vim.lsp.config('verible', {
-   cmd = {'verible-verilog-ls'}--, '--indentation_spaces', '4'}
+    cmd = { 'verible-verilog-ls', '--indentation_spaces', '4'}
 })
 
 -- lsp binds (other than defaults)
