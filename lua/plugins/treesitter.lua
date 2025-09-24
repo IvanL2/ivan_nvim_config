@@ -5,10 +5,11 @@ return {
     main = "nvim-treesitter.configs",
     opts = {
         ensure_installed = {
-                "vim","vimdoc","lua",
-                "c","cpp","cmake",
-                "ocaml","ocaml_interface",
-                "python"
+                "vim","vimdoc","lua", -- nvim core
+                "c","cpp","cmake", -- embedded
+                "ocaml","ocaml_interface", -- goat
+                "python",
+                "verilog","tcl","bash" -- VLSI
         },
         auto_install = true,
         highlight = { enable = true },
