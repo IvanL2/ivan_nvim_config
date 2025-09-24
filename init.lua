@@ -35,7 +35,7 @@ vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Telescope buffers' }
 
 -- verible lsp config
 vim.lsp.config('verible', {
-    cmd = { 'verible-verilog-ls', '--indentation_spaces', '4', '--rules=-line-length,-macro-name-style,-explicit-parameter-storage-type,+parameter-name-style="localparam_style:ALL_CAPS"'}
+    cmd = { 'verible-verilog-ls', '--indentation_spaces', '4', '--rules=-line-length,-macro-name-style,-explicit-parameter-storage-type,+parameter-name-style="localparam_style:ALL_CAPS"', '--lsp_enable_hover'}
 })
 
 -- lsp binds (other than defaults)
