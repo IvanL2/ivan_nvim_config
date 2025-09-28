@@ -23,6 +23,10 @@ vim.cmd("colorscheme material")
 vim.api.nvim_set_hl(0, "@keyword.directive.verilog", { fg = "#DC6068" })
 vim.api.nvim_set_hl(0, "@keyword.directive.define.verilog", { fg = "#DC6068" })
 
+-- remap system clipboard yank/cut because "+y is painful
+vim.keymap.set({"n", "x"}, "<leader>y", '"+y', { silent = true })
+vim.keymap.set({"n", "x"}, "<leader>d", '"+d', { silent = true })
+
 -- bufferline (tabs) setup
 vim.opt.termguicolors = true
 require("bufferline").setup {}
