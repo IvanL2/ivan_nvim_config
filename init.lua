@@ -46,6 +46,21 @@ vim.lsp.config('verible', {
     cmd = { 'verible-verilog-ls', '--indentation_spaces', '4', '--rules=-line-length,-macro-name-style,-explicit-parameter-storage-type,+parameter-name-style="localparam_style:ALL_CAPS"', '--lsp_enable_hover'}
 })
 
+-- ufo (folding) config
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
+local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
+for _, ls in ipairs(language_servers) do
+    require('lspconfig')[ls].setup({
+        capabilities = capabilities
+        -- you can add other fields for setting up lsp server in this table
+    })
+end
+require('ufo').setup()
+
 -- lsp binds (other than defaults)
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
