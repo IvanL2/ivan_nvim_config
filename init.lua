@@ -34,6 +34,13 @@ require("bufferline").setup {}
 -- nvim-tree setup
 require("nvim-tree").setup()
 
+-- telescope native extension
+require('telescope').setup {
+    extensions = {
+        fzf = {}
+    }
+}
+require('telescope').load_extension('fzf')
 -- telescope keybinds setup
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
