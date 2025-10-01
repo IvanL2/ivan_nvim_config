@@ -13,6 +13,12 @@ vim.bo.tabstop = 4
 vim.o.shiftwidth = 4
 vim.bo.shiftwidth = 4
 
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+vim.o.showtabline = 2
 -- lazy plugin manager
 require("config.lazy")
 
@@ -27,9 +33,15 @@ vim.api.nvim_set_hl(0, "@keyword.directive.define.verilog", { fg = "#DC6068" })
 vim.keymap.set({"n", "x"}, "<leader>y", '"+y', { silent = true })
 vim.keymap.set({"n", "x"}, "<leader>d", '"+d', { silent = true })
 
+-- new tab
+vim.keymap.set({"n", "x"}, "<C-n>", "<cmd>tabnew<cr>")
 -- bufferline (tabs) setup
 vim.opt.termguicolors = true
-require("bufferline").setup {}
+-- require("bufferline").setup {
+--     options = {
+--         mode = "tabs"
+--     }
+-- }
 
 -- nvim-tree setup
 require("nvim-tree").setup()
