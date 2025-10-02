@@ -32,6 +32,8 @@ vim.api.nvim_set_hl(0, "@keyword.directive.define.verilog", { fg = "#DC6068" })
 -- remap system clipboard yank/cut because "+y is painful
 vim.keymap.set({"n", "x"}, "<leader>y", '"+y', { silent = true })
 vim.keymap.set({"n", "x"}, "<leader>d", '"+d', { silent = true })
+vim.keymap.set({"n", "x"}, "<leader>p", '"+p', { silent = true })
+vim.keymap.set({"n", "x"}, "<leader>P", '"+P', { silent = true })
 
 -- new tab
 vim.keymap.set({"n", "x"}, "<C-n>", "<cmd>tabnew<cr>")
