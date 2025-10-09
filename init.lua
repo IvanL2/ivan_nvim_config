@@ -44,6 +44,12 @@ vim.opt.termguicolors = true
 --     }
 -- }
 
+-- Personal per-device config
+res, mod = pcall(require, "config.ivan_local_config")
+if (res and mod) then
+    mod.local_config()
+end
+
 -- nvim-tree setup
 require("nvim-tree").setup()
 
