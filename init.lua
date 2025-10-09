@@ -23,8 +23,7 @@ vim.o.showtabline = 2
 require("config.lazy")
 
 -- colourscheme
-vim.g.material_style = "deep ocean"
-vim.cmd("colorscheme material")
+vim.cmd("colorscheme carbonfox")
 -- adjustments for verilog
 vim.api.nvim_set_hl(0, "@keyword.directive.verilog", { fg = "#DC6068" })
 vim.api.nvim_set_hl(0, "@keyword.directive.define.verilog", { fg = "#DC6068" })
