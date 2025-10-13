@@ -57,9 +57,14 @@ require("nvim-tree").setup()
 require('telescope').setup {
     extensions = {
         fzf = {}
+    },
+    defaults = {
+        path_display = { "smart "},
+        layout_strategy = "vertical"
     }
 }
 require('telescope').load_extension('fzf')
+
 -- telescope keybinds setup
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
