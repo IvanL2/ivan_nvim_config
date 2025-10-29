@@ -14,7 +14,7 @@ vim.o.shiftwidth = 4
 vim.bo.shiftwidth = 4
 
 vim.o.foldcolumn = '1' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
@@ -29,13 +29,13 @@ vim.api.nvim_set_hl(0, "@keyword.directive.verilog", { fg = "#DC6068" })
 vim.api.nvim_set_hl(0, "@keyword.directive.define.verilog", { fg = "#DC6068" })
 
 -- remap system clipboard yank/cut because "+y is painful
-vim.keymap.set({"n", "x"}, "<leader>y", '"+y', { silent = true })
-vim.keymap.set({"n", "x"}, "<leader>d", '"+d', { silent = true })
-vim.keymap.set({"n", "x"}, "<leader>p", '"+p', { silent = true })
-vim.keymap.set({"n", "x"}, "<leader>P", '"+P', { silent = true })
+vim.keymap.set({ "n", "x" }, "<leader>y", '"+y', { silent = true })
+vim.keymap.set({ "n", "x" }, "<leader>d", '"+d', { silent = true })
+vim.keymap.set({ "n", "x" }, "<leader>p", '"+p', { silent = true })
+vim.keymap.set({ "n", "x" }, "<leader>P", '"+P', { silent = true })
 
 -- new tab
-vim.keymap.set({"n", "x"}, "<C-n>", "<cmd>tabnew<cr>")
+vim.keymap.set({ "n", "x" }, "<C-n>", "<cmd>tabnew<cr>")
 -- bufferline (tabs) setup
 vim.opt.termguicolors = true
 -- require("bufferline").setup {
@@ -45,7 +45,7 @@ vim.opt.termguicolors = true
 -- }
 
 -- Personal per-device config
-res, mod = pcall(require, "config.ivan_local_config")
+local res, mod = pcall(require, "config.ivan_local_config")
 if (res and mod) then
     mod.local_config()
 end
@@ -59,7 +59,7 @@ require('telescope').setup {
         fzf = {}
     },
     defaults = {
-        path_display = { "smart "},
+        path_display = { "smart " },
         layout_strategy = "vertical"
     }
 }
@@ -70,12 +70,35 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>g', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Telescope buffers' })
--- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- verible lsp config
 vim.lsp.config('verible', {
-    cmd = { 'verible-verilog-ls', '--indentation_spaces', '4', '--rules=-line-length,-macro-name-style,-explicit-parameter-storage-type,+parameter-name-style="localparam_style:ALL_CAPS"', '--lsp_enable_hover'}
+    cmd = {
+        'verible-verilog-ls',
+        -- '--flagfile=/nfs/site/home/ily/.config/verible/flags.txt'
+        '--indentation_spaces', '4',
+        '--rules=-line-length,-macro-name-style,-explicit-parameter-storage-type,+parameter-name-style="localparam_style:ALL_CAPS",-generate-label-prefix,+endif-comment,+explicit-begin',
+        '--lsp_enable_hover',
+        '--assignment_statement_alignment=align',
+        '--case_items_alignment=align',
+        '--enum_assignment_statement_alignment=align',
+        '--formal_parameters_alignment=align',
+        '--formal_parameters_indentation=indent',
+        '--module_net_variable_alignment=align',
+        '--named_parameter_indentation=indent',
+        '--named_port_alignment=align',
+        '--named_port_indentation=indent',
+        '--port_declarations_alignment=align',
+        '--port_declarations_indentation=indent',
+        '--struct_union_members_alignment=align',
+        '--port_declarations_right_align_packed_dimensions=false',
+        '--port_declarations_right_align_unpacked_dimensions=false'
+    }
 })
+
+-- vim.lsp.config("clangd", {
+--     cmd = { "clangd", "--log=verbose" }
+-- })
 
 -- ufo (folding) config
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -83,16 +106,17 @@ capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true
 }
+
 local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
 for _, ls in ipairs(language_servers) do
-    require('lspconfig')[ls].setup({
-        capabilities = capabilities
-        -- you can add other fields for setting up lsp server in this table
-    })
+    vim.lsp.config(ls,
+        { capabilities = capabilities }
+    )
 end
 require('ufo').setup()
 
 -- lsp binds (other than defaults)
+local bufopts = { silent = true, noremap = true }
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -104,5 +128,5 @@ vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, bufopts)
 
 -- leap
-vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
-vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
+vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
+vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
