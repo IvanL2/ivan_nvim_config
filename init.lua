@@ -18,6 +18,12 @@ vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to de
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
+vim.o.wrap = false
+vim.o.list = true
+vim.o.sidescroll = 20
+vim.o.sidescrolloff = 2
+vim.o.lcs = vim.o.lcs .. ",precedes:<,extends:>"
+
 vim.o.showtabline = 2
 -- lazy plugin manager
 require("config.lazy")
@@ -36,13 +42,7 @@ vim.keymap.set({ "n", "x" }, "<leader>P", '"+P', { silent = true })
 
 -- new tab
 vim.keymap.set({ "n", "x" }, "<C-n>", "<cmd>tabnew<cr>")
--- bufferline (tabs) setup
 vim.opt.termguicolors = true
--- require("bufferline").setup {
---     options = {
---         mode = "tabs"
---     }
--- }
 
 -- Personal per-device config
 local res, mod = pcall(require, "config.ivan_local_config")
