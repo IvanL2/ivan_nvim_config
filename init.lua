@@ -51,7 +51,11 @@ if (res and mod) then
 end
 
 -- nvim-tree setup
-require("nvim-tree").setup()
+local nvimtree = require("nvim-tree")
+local nvimtree_api = require("nvim-tree.api")
+nvimtree.setup()
+vim.keymap.set({"n","x"}, "<leader>t", nvimtree_api.tree.toggle, { silent = true, noremap = true })
+
 
 -- telescope native extension
 require('telescope').setup {
@@ -130,3 +134,11 @@ vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, bufopts)
 -- leap
 vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
 vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+
+-- outline
+local outline = require("outline")
+outline.setup()
+vim.keymap.set({'n', 'x', 'o'}, '<leader>o', outline.toggle, bufopts)
+
+require("mason-lspconfig").setup()
+
