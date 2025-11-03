@@ -133,18 +133,18 @@ vim.lsp.config("clangd", {
 })
 
 -- ufo (folding) config
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.foldingRange = {
---     dynamicRegistration = false,
---     lineFoldingOnly = true
--- }
---
--- local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
--- for _, ls in ipairs(language_servers) do
---     vim.lsp.config(ls,
---         { capabilities = capabilities }
---     )
--- end
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
+
+local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
+for _, ls in ipairs(language_servers) do
+    vim.lsp.config(ls,
+        { capabilities = capabilities }
+    )
+end
 require('ufo').setup()
 
 -- lsp binds (other than defaults)
