@@ -56,24 +56,50 @@ local nvimtree_api = require("nvim-tree.api")
 nvimtree.setup()
 vim.keymap.set({"n","x"}, "<leader>t", nvimtree_api.tree.toggle, { silent = true, noremap = true })
 
-
--- telescope native extension
-require('telescope').setup {
+-- telescope
+local telescope = require("telescope")
+telescope.setup {
     extensions = {
-        fzf = {}
+        fzf = {},
+        aerial = {}
     },
     defaults = {
         path_display = { "smart " },
         layout_strategy = "vertical"
     }
 }
-require('telescope').load_extension('fzf')
+telescope.load_extension('fzf')
+telescope.load_extension("aerial")
 
 -- telescope keybinds setup
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>g', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Telescope buffers' })
+
+-- aerial
+local aerial = require("aerial")
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  filter_kind = {
+    "Class",
+    "Constructor",
+    "Enum",
+    "Function",
+    "Interface",
+    "Module",
+    "Method",
+    "Namespace",
+    "Struct",
+    "Variable"
+  },
+  highlight_closest = false,
+  close_on_select = true,
+  on_attach = function(bufnr)
+  end,
+})
+vim.keymap.set("n", "<leader>o", aerial.toggle, { silent = true, noremap = true})
+vim.keymap.set("n", "<leader>O", telescope.extensions.aerial.aerial, { silent = true, noremap = true})
 
 -- verible lsp config
 vim.lsp.config('verible', {
@@ -100,23 +126,25 @@ vim.lsp.config('verible', {
     }
 })
 
--- vim.lsp.config("clangd", {
---     cmd = { "clangd", "--log=verbose" }
--- })
+vim.lsp.config("clangd", {
+    cmd = { "clangd", "--log=verbose",
+        "--query-driver=/home/computer/programs/intelFPGA_lite/24.1std/riscfree/toolchain/riscv32-unknown-elf/bin/riscv32-unknown-elf-g++"
+    }
+})
 
 -- ufo (folding) config
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
-}
-
-local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
-for _, ls in ipairs(language_servers) do
-    vim.lsp.config(ls,
-        { capabilities = capabilities }
-    )
-end
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.foldingRange = {
+--     dynamicRegistration = false,
+--     lineFoldingOnly = true
+-- }
+--
+-- local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
+-- for _, ls in ipairs(language_servers) do
+--     vim.lsp.config(ls,
+--         { capabilities = capabilities }
+--     )
+-- end
 require('ufo').setup()
 
 -- lsp binds (other than defaults)
@@ -135,10 +163,10 @@ vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, bufopts)
 vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
 vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
 
--- outline
-local outline = require("outline")
-outline.setup()
-vim.keymap.set({'n', 'x', 'o'}, '<leader>o', outline.toggle, bufopts)
+-- -- outline
+-- local outline = require("outline")
+-- outline.setup()
+-- vim.keymap.set({'n', 'x', 'o'}, '<leader>o', outline.toggle, bufopts)
 
 require("mason-lspconfig").setup()
 
