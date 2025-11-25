@@ -80,25 +80,15 @@ vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Telescope buffers' }
 -- aerial
 local aerial = require("aerial")
 require("aerial").setup({
-  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-  filter_kind = {
-    "Class",
-    "Constructor",
-    "Constant",
-    "Enum",
-    "Function",
-    "Interface",
-    "Module",
-    "Method",
-    "Namespace",
-    "Struct",
-    "Variable"
-  },
+    backends = { "lsp", "treesitter" },
+    filter_kind = {
+        systemverilog = false,
+        cpp = { "Class", "Constructor", "Constant", "Enum", "Function", "Method", "Namespace", "Struct"},
+    },
   highlight_closest = false,
   close_on_select = true,
-  on_attach = function(bufnr)
-  end,
 })
+
 vim.keymap.set("n", "<leader>o", aerial.toggle, { silent = true, noremap = true})
 vim.keymap.set("n", "<leader>O", telescope.extensions.aerial.aerial, { silent = true, noremap = true})
 
@@ -145,13 +135,12 @@ require('ufo').setup()
 local bufopts = { silent = true, noremap = true }
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
 vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, bufopts)
+vim.keymap.set('n', '<leader>h', '<cmd>LspClangdSwitchSourceHeader<CR>', bufopts)
 
 -- leap
 vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
