@@ -106,7 +106,6 @@ vim.keymap.set("n", "<leader>O", telescope.extensions.aerial.aerial, { silent = 
 vim.lsp.config('verible', {
     cmd = {
         'verible-verilog-ls',
-        -- '--flagfile=/nfs/site/home/ily/.config/verible/flags.txt'
         '--indentation_spaces', '4',
         '--rules=-line-length,-macro-name-style,-explicit-parameter-storage-type,+parameter-name-style="localparam_style:ALL_CAPS",-generate-label-prefix,+endif-comment,+explicit-begin',
         '--lsp_enable_hover',
@@ -124,12 +123,6 @@ vim.lsp.config('verible', {
         '--struct_union_members_alignment=align',
         '--port_declarations_right_align_packed_dimensions=false',
         '--port_declarations_right_align_unpacked_dimensions=false'
-    }
-})
-
-vim.lsp.config("clangd", {
-    cmd = { "clangd", "--log=verbose",
-        "--query-driver=/home/computer/programs/intelFPGA_lite/24.1std/riscfree/toolchain/riscv32-unknown-elf/bin/riscv32-unknown-elf-g++"
     }
 })
 
