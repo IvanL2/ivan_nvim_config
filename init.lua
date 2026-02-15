@@ -2,7 +2,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ","
 
-require("lua.options")
+require("options")
 
 -- lazy plugin manager
 require("config.lazy")
@@ -18,4 +18,4 @@ if (res and mod) then
 end
 
 -- Load last, as depends on plugins
-require("lua.keybinds")
+require("keybinds")
