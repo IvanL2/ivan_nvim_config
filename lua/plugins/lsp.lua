@@ -32,8 +32,8 @@ return {
     local verible_lint_rules = [[
       -line-length,
       -macro-name-style,
-      -explicit-parameter-storage-type
-      +parameter-name-style="localparam_style:ALL_CAPS,parameter_style:ALL_CAPS",
+      -explicit-parameter-storage-type,
+      +parameter-name-style="localparam_style:ALL_CAPS;parameter_style:ALL_CAPS",
       -generate-label-prefix,
       +explicit-begin,
       -constraint-name-style,
