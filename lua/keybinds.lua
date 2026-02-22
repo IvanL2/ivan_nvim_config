@@ -24,9 +24,17 @@ vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
 vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-vim.keymap.set('n', '<leader>F', vim.lsp.buf.format, bufopts)
+vim.keymap.set('n', '<leader>F',  require("conform").format, bufopts)
 vim.keymap.set('n', '<leader>h', '<cmd>LspClangdSwitchSourceHeader<CR>', bufopts)
 
 -- leap
 vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
 vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+
+vim.keymap.set('n', '<leader>z', function()
+  if (vim.wo.foldcolumn == "0") then
+    vim.wo.foldcolumn = "1"
+  else
+    vim.wo.foldcolumn = "0"
+  end
+end, {})

@@ -10,7 +10,7 @@ return {
       width = {
         min = 30,
         max = 60,
-        padding = 10,
+        padding = 5,
       }
     }
   },
