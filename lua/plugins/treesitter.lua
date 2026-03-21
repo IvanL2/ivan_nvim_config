@@ -2,7 +2,8 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   lazy = false,
-  main = (vim.version().minor >= 12) and "nvim-treesitter.config" or "nvim-treesitter.configs",
+  branch = "main",
+  main = "nvim-treesitter.config",
   opts = {
     ensure_installed = {
       "vim", "vimdoc", "lua",              -- nvim core
