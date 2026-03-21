@@ -17,5 +17,6 @@ if (res and mod) then
   mod.local_config()
 end
 
+
 -- Load last, as depends on plugins
 require("keybinds")

@@ -25,8 +25,8 @@ verible_stuff.lint_rules = [[
     +suspicious-semicolon ]]
 
 verible_stuff.indent_spaces = 3
-verible_stuff.column_limit = 120
-verible_stuff.wrap_spaces = 0
+verible_stuff.column_limit = 100
+verible_stuff.wrap_spaces = verible_stuff.indent_spaces;
 
 verible_stuff.format_args = {
   "--indentation_spaces", verible_stuff.indent_spaces,
@@ -35,8 +35,8 @@ verible_stuff.format_args = {
   "--assignment_statement_alignment=align",
   "--case_items_alignment=align",
   "--enum_assignment_statement_alignment=align",
-  "--formal_parameters_alignment=align",
-  "--formal_parameters_indentation=indent",
+  "--formal_parameters_alignment=flush-left",
+  "--formal_parameters_indentation=wrap",
   "--module_net_variable_alignment=align",
   "--named_parameter_indentation=indent",
   "--named_port_alignment=align",
@@ -48,15 +48,6 @@ verible_stuff.format_args = {
   "--port_declarations_right_align_packed_dimensions=false",
   "--port_declarations_right_align_unpacked_dimensions=false"
 }
-
-verible_stuff.ls_args = concat_lists({
-  "--rules=" .. verible_stuff.lint_rules,
-  "--lsp_enable_hover",
-}, verible_stuff.format_args)
-
-verible_stuff.ls_cmd = concat_lists({
-  "verible-verilog-ls"
-}, verible_stuff.ls_args)
 
 verible_stuff.formatter_args = concat_lists(
   verible_stuff.format_args,

@@ -6,22 +6,6 @@ return {
   },
 
   config = function()
-    local language_servers = { "clangd", "lua_ls", "verible", "basedpyright" } -- or list servers manually like {'gopls', 'clangd'}
-    --
-    -- for _, ls in ipairs(language_servers) do
-    --   vim.lsp.config(ls,
-    --     {
-    --       capabilities = {
-    --         textDocument = {
-    --           foldingRange = {
-    --             dynamicRegistration = false,
-    --             lineFoldingOnly = true
-    --           }
-    --         }
-    --       }
-    --     }
-    --   )
-    -- end
     vim.lsp.config("lua_ls", {
       settings = {
         Lua = {
@@ -32,7 +16,22 @@ return {
       }
     })
 
-    vim.lsp.config("verible", {
-      cmd = require("verible_stuff").ls_cmd })
+    local slang_server_path_loc = vim.fs.joinpath(vim.fn.stdpath("config"), "slang_server_path.txt")
+    local slang_server_path_fd = io.open(slang_server_path_loc, "r")
+    if slang_server_path_fd then
+      local slang_server_path = slang_server_path_fd:read("*a"):gsub("^%s*(.-)%s*$", "%1")
+      slang_server_path_fd:close();
+
+      vim.lsp.config("slang-server", {
+        cmd = { slang_server_path },
+        root_markers = { ".slang" },
+        filetypes = {
+          "systemverilog",
+          "verilog",
+        },
+      })
+
+      vim.lsp.enable("slang-server")
+    end
   end
 }
