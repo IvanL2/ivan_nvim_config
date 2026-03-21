@@ -1,3 +1,5 @@
 pack
 lazy-lock.json
 lua/config/ivan_local_config.lua
+slang_server_path.txt
+clangd_query_driver_paths.txt
