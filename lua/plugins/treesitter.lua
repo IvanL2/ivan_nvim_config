@@ -2,8 +2,8 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   lazy = false,
-  branch = "master",
-  main = "nvim-treesitter.configs",
+  branch = "main",
+  main = "nvim-treesitter.config",
   opts = {
     ensure_installed = {
       "vim", "vimdoc",              -- nvim core
