@@ -7,6 +7,8 @@ require("options")
 -- lazy plugin manager
 require("config.lazy")
 
+require("parsers")
+
 vim.cmd("colorscheme carbonfox")
 vim.api.nvim_set_hl(0, "@keyword.directive.verilog", { fg = "#DC6068" })
 vim.api.nvim_set_hl(0, "@keyword.directive.define.verilog", { fg = "#DC6068" })
